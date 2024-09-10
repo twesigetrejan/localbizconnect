@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+<div class="container bg-white rounded shadow mt-5 px-2  ">
+    <div class="row">
+        <div class="col-12 col-md-8 p-4 mt-3">
+            <div class="border-bottom d-flex justify-content-between">
+                <h3>Shopping Cart</h3>
+                <h3>Cart({{ total_items }})</h3>
+            </div>
+            <div class="my-2">
+                <div class="row">
+                    <div class="col-5"><p>Product Details</p></div>
+                    <div class="col-2"><p>Quantity</p></div>
+                    <div class="col-2"><p>Price</p></div>
+                    <div class="col-2"><p>Total</p></div>
+                </div>
+                {% for item, quantity in cart_items %} 
+                    <div class="row cart d-flex align-items-center border-bottom">
+                        <div class="col-4">
+                            <div class="d-flex">
+                                <img class="w-50" src="{{ item.picture.url }}"  alt="{{ item.title }}">
+                                <div class="ms-3 d-flex flex-column justify-content-center">
+                                    <h6>{{ item.title }}</h6>
+                                    <span>{{ item.category }}</span>
+                                    <a href="{% url 'remove-item' item.id %}" class="mt-3 text-danger">Remove</a>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-2 d-flex align-items-center justify-content-between">
+                            <i class="fa-solid fa-minus sub"></i>
+                            <input type="text" class="w-50 quantity" value="{{ quantity }}">
+                            <i class="fa-solid fa-plus add"></i>
+                        </div>
+                        <div class="col-3 qual"><p>{{ item.price }}</p></div>
+                        <div class="col-3"><p data-unit="{{ item.price }}" quantityVal="{{ quantity }}" class="total_quantity"></p></div>
+                    </div> 
+            {% endfor %}
+
+                <div class="bg-light mt-auto">
+                    <a href="{% url 'Item-list' %}" class="btn btn-outline-warning my-4">
+                        <i class="fa-solid fa-arrow-left"></i> Back to shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 "> 
+            <div class="b-primary p-3">
+                <div class="border-bottom text-center text-white">
+                    <h4>Order Summary</h4>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <h5>Total items : {{ total_items }}</h5>
+                    <h5>Ugx. <span class="tot">{{ total_price }}</span> </h5></h5>
+                </div>
+                <div class="border-bottom pb-2">
+                    <p>shopping</p>
+                    <input type="text" class="form-control outline-none shadow-none">
+                    <p>Discount Code</p>
+                    <input type="text" class="form-control outline-none shadow-none">
+                </div>
+                <div class="mt-4 text-center">
+                    <div class="text-start d-flex justify-content-between">
+                        <h6 class="text-muted">TOTAL COST:</h6>
+                        <h5>Ugx. <span class="tot">{{ total_price }}</span></h5>
+                    </div>
+                    <a href="{% url 'create-order' total_price=total_price confirmation_token='your_confirmation_token_value' %}" class="btn btn-sm btn-primary w-100">
+                        Checkout
+                        <i class="fa-regular fa-hand-point-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        function get_total(){   
+            var allTotal = 0;
+            $('.total_quantity').each(function(){
+                var total = 0; 
+                var part = parseInt($(this).attr('data-unit'));
+                var quantity = parseInt($(this).attr('quantityVal'));
+                total = part * quantity; 
+                allTotal+=total;
+                $(this).html(total); 
+                $('.tot').html(allTotal); 
+            });
+        }
+        get_total();
+
+        $('.sub').click(function(){
+            var val = $(this).parent().find('.quantity').val();
+            if (val != 1){
+                val--;
+                $(this).parent().find('.quantity').val(val);
+                var newqual =$(this).closest('.col-2').siblings().find('.total_quantity').attr('quantityVal', val);
+                get_total();
+            }
+        });
+
+        $('.add').click(function(){
+            var val = $(this).parent().find('.quantity').val();
+            val++;
+            $(this).parent().find('.quantity').val(val);
+                var newqual =$(this).closest('.col-2').siblings().find('.total_quantity').attr('quantityVal', val);
+                get_total();
+        });
+        
+    });
+</script>
+{% endblock%}

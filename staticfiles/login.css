@@ -1,0 +1,201 @@
+
+*{
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background: #eee;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.side-content, .login{
+    height: 80vh;
+    width: 80vh;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+}
+.side-content {
+    width: 500px;
+    /* background-size: cover; 
+    background-image: url(download.jpeg); */
+    border-radius: 20px 0 0 20px;
+    background: #AED9E0;
+    text-align: center;
+}
+
+.side-content h2{
+    color: #fff;
+    font-size: 2em;
+}
+
+.side-content .register{
+    color: #fff;
+    display: block;
+    border: 1px solid #fff;
+    padding: 10px 0;
+    border-radius: 30px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.side-content p{
+    color: #464343;
+}
+
+.login{
+    background: #fff;
+    border-radius: 0 20px 20px 0px; 
+}
+
+.login h3{
+    color: #AED9E0;
+    font-size: 3em;
+    text-align: center;
+}
+
+.login form{
+    width: 70%; 
+}
+.login .form-group{ 
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.login .form-group div{
+    margin-top: 10px;
+}
+
+.login .form-group input{
+    background-color: #eee;
+    height: 50px; 
+    border-radius: 30px;
+    padding: 2px 40px; 
+    width: 100%;
+    border: none;
+    outline: none;
+    transition: .3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+}
+
+.login .form-group input:focus{
+    border: 1px solid #FFBC42;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.login .form-group i{
+    position: absolute;
+    left: 5%;
+    top: 30%;
+    color: #073B4C;
+}
+
+.login .action_button{
+    display: block;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    padding: 20px 0;
+    width: 100%;
+    transition: .3s ease;
+    background: rgb(255,255,255);
+    background: linear-gradient(144deg, rgba(255,255,255,1) 0%, rgba(250,169,22,1) 48%);
+}
+
+.login .action_button:hover{
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-size: 1.3em;
+    font-weight: bold;
+
+}
+
+.errorlist li{
+    list-style: none;
+}
+ /* register section */
+ .register .login{
+    height: 95vh;  
+    padding: 0 auto;
+    padding-bottom: 20px;
+ }
+
+.register .side-content{
+    height: 95vh;
+}
+.register .helptext{
+    display: none;
+ }
+
+ .register .form-floating{
+    margin-top: 10px;
+ }
+
+ .register .login label{
+    color: #838383;
+ }
+
+ .register .login label::after{
+    content: '*';
+    color: #db1919;
+ }
+
+ .errorlist{
+    background-color: #F8DDDD;
+    border: 1px solid #F5C6CB;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 15px; 
+
+}
+
+.errorlist li{
+    color: #C82C2C;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-label {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease-in-out;
+    pointer-events: none; /* Prevent clicks on label */
+    color: #999; /* Adjust color */
+}
+
+.form-group input {
+    padding-top: 1.5rem; /* Space for the label */
+}
+
+input:focus + .form-label, 
+input:not(:empty) + .form-label,
+.form-label.floating {
+    transform: translateY(-200%);
+    font-size: 0.8rem; /* Adjust font size for smaller label */
+    color: #333; /* Adjust color */
+    background: #fff; 
+}
+
+
+.register .login h3{
+    margin: -10px auto 30px auto;
+}

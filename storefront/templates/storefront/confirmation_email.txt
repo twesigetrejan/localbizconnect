@@ -1,0 +1,5 @@
+Order Confirmation
+
+Thank you for your order! Your order has been successfully placed.
+
+Please feel free to contact us if you have any questions or concerns.

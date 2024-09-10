@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="..." crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>LocalBizzConnect</title> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-white" id="offcanvasWithBothOptionsLabel">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body"> 
+            <ul>
+                <li><a href="{% url 'Item-list' %}">Home</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'profile' %}">My account</a></li>
+                <li><a href="{% url 'register_biz' %}">New Business</a></li>
+                <li><a href="#footer">Contact</a></li> 
+            </ul>
+        </div>
+      </div>
+    <section>
+        <div class="container-fluid p-0">
+            <div class="hero">
+                <div class="nav-top">
+                    <div class="d-flex align-items-center justify-content-between p-3">
+                        <div class="logo m-0 d-flex align-items-center">
+                            <button class="btn d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
+                            <p class="mt-3">LocalBizzConnect</p>
+                        </div>
+                        <div class="nav-links  d-none mt-3 d-md-block">
+                            <ul>
+                                <li><a href="{% url 'Item-list' %}">Home</a></li>
+                                <li><a href="{% url 'services' %}">Services</a></li>
+                                <li><a href="{% url 'profile' %}">My account</a></li>
+                                <li><a href="{% url 'register_biz' %}">New Business</a></li>
+                                <li><a href="#footer">Contact</a></li>
+                                <li><a href = "{% url 'about' %}"> About</a><li>
+                            </ul>
+                        </div>
+                        <div class="signin d-flex">
+                            <a href = "{% url 'cart-view' %}">
+                            <i class="fa-solid fa-cart-shopping me-2 text-white"></i>
+                            </a>
+                            {% if user.is_authenticated %}
+                              <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button class="btn border rounded-pill text-white px-4 ms-2" type="submit">Logout</button>
+                            </form>
+                            {% else %}
+                             <a class="ms-2" href="{% url 'login' %}">Login</a>
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                </div>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="custom-message {{ message.tags }}">
+                {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="content d-flex align-items-center pe-4">
+                    <div class="ms-auto ps-2 ">
+                        <h1 class="text-center text-md-left">Connect your bussiness</h1>
+                        <h1 class="text-white text-center">World Wide.</h1>
+                    </div>
+                    <div class="image">
+                        <img src="/static/images/grocery.png" alt="">
+                        <img src="/static/images/kitchen.png" alt="">
+                        <!-- <img src="/static/images/shopping-cart.png" alt=""> -->
+                        <img src="/static/images/food.png" alt="">
+                    </div>
+                    <div class="icon"><i class="fa-solid fa-angles-down fa-bounce fs-1 fa-2xl"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+      <a href = "{% url 'services' %}">
+        <div class="container-fluid bg-light">
+            <div class="p-3">
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="shadow py-2 text-white rounded b-primary service-list">
+                          <p>Services<p>
+                              <ul class="list-group list-group-flush "> 
+                                {% for service_name in service_names %}
+                                <li class="list-group-item b-primary text-white">{{ service_name }}</li>
+                                {% endfor %}
+                              </ul>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div class="products"> 
+                            <div class="row">
+                                {% for item in product %}
+                                <div class="col-6 mt-2 col-md-4 text-center">
+                                    <div class="product-card shadow">
+                                        <div class="row">
+                                            <div class="col-12 product-image-holder">
+                                                <a href ="{% url 'item_detail' item_id=item.id %}">
+                                                  <img src="{{ item.picture.url }}" class="product-image" alt="{{ item.title }}">
+                                                </a>
+                                            </div>
+                                            <div class="col-12">
+                                                <span class="c-primary">{{item.category }}</span>
+                                                <h6>{{item.title }}</h6>
+                                                <h5 class="c-primary">Ush {{ item.price }}</h5>
+                                                <p class="mt-2 ">{{ item.short_description }} </p>
+                                                <a href="{% url 'add-to-cart' item.id %}" class="btn b-primary w-100" >Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+      <div class="container-fluid b-primary p-0">
+        <div class="ads">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="discount">
+                  <div class="row">
+                    <div class="col-4 ">
+                      <div class="img-hlder">
+                        <img src="/static/images/sup1.png" alt="">
+                      </div>
+                    </div>
+                    <div class="col-8 d-flex justify-content-center align-items-center">
+                      <div class="w-75">
+                        <h1 class="text-white display-2 fw-bold">Discount Prices</h1>
+                        <p class="lead display-3 c-primary">Upto 40% </p>
+                        <div class="mt-3 border-top">
+                          <span class="text-white lead">
+                            23 days to go
+                          </span><br />
+                          <a href="" class="btn rounded-pill border mt-4 text-start">                            <i class="fa-solid fa-cart-shopping me-2 text-white"></i>
+                            Shop Now</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="discount appliance">
+                  <div class="row">
+                    <div class="col-8 d-flex justify-content-center align-items-center">
+                      <div class="w-75">
+                        <h1 class="text-white display-2 fw-bold">All appliances available</h1>
+                        <p class="lead display-3 c-primary">Upto 40% </p>
+                        <div class="mt-3 border-top"> 
+                          <a href="" class="btn rounded-pill border mt-4 text-start">                            <i class="fa-solid fa-cart-shopping me-2 text-white"></i>
+                            Shop Now</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4 ">
+                      <div class="img-hlder">
+                        <img src="/static/images/sup2.png" class="mx-auto" alt="">
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="discount">
+                  <div class="row">
+                    <div class="col-4 ">
+                      <div class="img-hlder">
+                        <img src="/static/images/sale.png" alt="">
+                      </div>
+                    </div>
+                    <div class="col-8 d-flex justify-content-center align-items-center">
+                      <div class="w-75">
+                        <h1 class="text-white display-2 fw-bold text-uppercase">Catch Up with our offers</h1>
+                        <p class="lead display-3 c-primary">Every month <i class="fa-solid fa-medal"></i></p>
+                        <div class="mt-3 border-top"> 
+                          <a href="" class="btn rounded-pill border mt-4 text-start">                            <i class="fa-solid fa-cart-shopping me-2 text-white"></i>
+                            Shop Now</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container-fluid b-primary slide-all pt-5">
+        <div class="container-fluid">
+          <div class="b-secondary">
+            <h5 class="p-3 text-white"><strong><i class="fa-solid fa-tag me-3"></i>Top Sellers</strong> | overall</h5>
+          </div>
+          <div class="test-slide">
+            <div class="move pt-2"  >
+              {% for item in product  %}
+              {% if item.category == 'games' or item.category == 'electronics' %}
+                <div class="prod pt-2 bg-white rounded shadow">
+                  <div class="img-case">
+                    <img src="{{ item.picture.url }}" class="product-image" alt="{{ item.title }}">
+                  </div>
+                  <div class="px-3 mt-3"> 
+                      <h6>{{item.title }}</h6>
+                      <h5 class="c-primary">Ush {{ item.price }}</h5>  
+                  </div>
+                </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div class="prev mv-btn"> <i class="fa-solid fa-angle-left"></i></div>
+            <div class="next mv-btn"><i class="fa-solid fa-angle-right"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-fluid b-primary slide-all pt-5">
+        <div class="container-fluid">
+          <div class="b-secondary">
+            <h5 class="p-3 text-white"><strong><i class="fa-solid fa-tag me-3"></i>Closet Section</strong> | overall</h5>
+          </div>
+          <div class="test-slide">
+            <div class="move pt-2"  >
+              {% for item in product  %}
+              {% if item.category == 'shoes'  %}
+                <div class="prod pt-2 bg-white rounded shadow">
+                  <div class="img-case">
+                    <img src="{{ item.picture.url }}" class="product-image" alt="{{ item.title }}">
+                  </div>
+                  <div class="px-3 mt-3"> 
+                      <h6>{{item.title }}</h6>
+                      <h5 class="c-primary">Ush {{ item.price }}</h5>  
+                  </div>
+                </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div class="prev mv-btn"> <i class="fa-solid fa-angle-left"></i></div>
+            <div class="next mv-btn"><i class="fa-solid fa-angle-right"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="footer">
+        <div class="b-primary footer p-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 col-md-3 mb-3">
+                        <h3>LocalBizConnect</h3>
+                        <span>Where Your business blooms</span>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="widget footer_widget">
+                            <h5 class="footer-title">Address</h5>
+                            <div class="gem-contacts">
+                              <div class="gem-contacts-item gem-contacts-address">Corporate Office :<br> Richie Tower, B-275(A), First floor
+                                Sector-57, Makerere
+                                Kikoni West, Zone 2, Off Nanfumbambi Road.
+                              </div>
+                              <div class="gem-contacts-item gem-contacts-phone"><i class="fa fa-phone" aria-hidden="true"></i> Phone: <a href="">+256-741594439</a></div>
+            
+                              <div class="gem-contacts-item gem-contacts-address mt-2">Reg. Office :<br> Wilsen House, D2/3,
+                                2th Floor, Wilsen Tower, Section 2</div>
+                              <div class="gem-contacts-item gem-contacts-phone"><i class="fa fa-phone" aria-hidden="true"></i> Phone: <a>+256-776890699</a></div>
+            
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="widget footer_widget">
+                            <h5 class="footer-title">Recent News</h5>
+                            <ul class="posts  styled">
+                              <li class="clearfix gem-pp-posts">
+                                <div class="gem-pp-posts-text">
+                                  <div class="gem-pp-posts-item">
+                                    <a href="#">Want to start Your Own Online Business.
+                                    </a>
+                                  </div>
+                                  <div class="gem-pp-posts-date">Call +256-755835030</div>
+                                </div>
+                              </li>
+                              <li class="clearfix gem-pp-posts">
+                                <div class="gem-pp-posts-text">
+                                  <div class="gem-pp-posts-item">
+                                    <a href="#">Now we are in Wakiso district,Now along Hoima Road.
+                                    </a>
+                                  </div>
+                                  <div class="gem-pp-posts-date">Call +256-774355365, +256-755835030</div>
+                                </div>
+                              </li>
+                              <li class="clearfix gem-pp-posts">
+                                <div class="gem-pp-posts-text">
+                                  <div class="gem-pp-posts-item">
+                                    <a href="">Now we are in Wakiso
+                                    </a>
+                                  </div>
+                                  <div class="gem-pp-posts-date">Call +256-755835030, +256-774355367</div>
+                                </div>
+                              </li>
+        
+                            </ul>
+                          </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="widget">
+                            <h5 class="footer-title">Email Us</h5>
+                            <div class="textwidget">
+                              <div >
+        
+                                <form method="post"  > 
+                                  <div class="contact-form-footer">
+                                    <p><span ><input type="text" name="your-first-name" value="" size="40" class="form-control  " aria-invalid="true" placeholder="Your name"></span></p>
+                                    <p><span ><input type="email" size="40" class="form-control  " aria-invalid="false" placeholder="Your email"></span></p>
+                                    <p><span  ><textarea name="your-message"  rows="10" class="form-control  " aria-invalid="false" placeholder="Your message"></textarea></span></p>
+                                    <div><input type="submit" value="Send" class="btn text-white bg-primary form-control wpcf7-submit"><span class="ajax-loader"></span></div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom border-top mt-3 pt-2">
+                <div class="container">
+                  <div class="row text-center"> 
+                    <div class="col-md-4">
+                      <div class="footer-site-info">2024 © <a href="https://www.youtube.com/watch?v=pdr4IzBpacI&t=34s" target="_blank">LocalBizConnect All Rights Reserved </a></div>
+                    </div>
+        
+                    <div class="col-md-4">
+                      <nav id="footer-navigation" class="site-navigation footer-navigation centered-box" role="navigation">
+                        <ul id="footer-menu" class="nav-menu styled clearfix inline-inside">
+                          <li class="d-inline"><a href="#">Home</a></li>
+                          <li class="d-inline"><a href="#">Products</a></li>
+                          <li class="d-inline"><a href="#">Services</a></li>
+                          <li class="d-inline"><a href="#">About</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+        
+                    <div class="col-md-4">
+                      <div id="footer-socials">
+                        <div class="socials inline-inside socials-colored">
+        
+                          <a href="#" target="_blank" title="Facebook" class="socials-item">
+                            <i class="fab fa-facebook-f facebook"></i>
+                          </a>
+                          <a href="#" target="_blank" title="Twitter" class="socials-item">
+                            <i class="fab fa-twitter twitter"></i>
+        
+                          </a>
+                          <a href="#" target="_blank" title="Instagram" class="socials-item">
+                            <i class="fab fa-instagram instagram"></i>
+                          </a>
+                          <a href="#" target="_blank" title="YouTube" class="socials-item">
+                            <i class="fab fa-youtube youtube"></i>
+                          </a>
+                          <a href="#" target="_blank" title="Telegram" class="socials-item">
+                            <i class="fab fa-telegram telegram"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+        </div>
+    </section>
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+    <script src="/static/js/home.js"></script>
+    <script> 
+      $('.next').click(function(){   
+          $(this).parent().find('.move').animate({
+            scrollLeft: "+=200"
+          }, "slow"); 
+         
+        
+      });
+
+      $('.prev').click(function(){  
+        $(this).parent().find('.move').animate({
+          scrollLeft: "-=200"
+        }, "slow"); 
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="..." crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+  {% block content %}
+  <div class="login-container register"> 
+    <div class="side-content"> 
+      <div>
+        <h2>Already have an account?</h2>
+        <p>Our website welcomes you back for yet another adventure</p>
+        <a href="{% url 'login' %}" class="register">Log In</a>
+      </div>
+    </div>
+    <div class="login"> 
+        <form method="POST"  >
+          <h3>Sign Up</h3>
+          {% csrf_token %} 
+          {{ form.username.errors }} 
+          {{ form.email.errors }} 
+          {{ form.password1.errors }} 
+          {{ form.password2.errors }} 
+          <div class="form-group form-floating">
+            <!-- <i class="fa-solid fa-user-tie"></i> -->
+            {{ form.username }}
+            <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+           </div>
+          <div class="form-group form-floating mt-3">
+            <!-- <i class="fa-solid fa-user-tie"></i> -->
+            {{ form.email }}
+            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+           </div>
+          <div class="form-group form-floating mt-3">
+            <!-- <i class="fa-solid fa-user-tie"></i> -->
+            {{ form.password1 }}
+            <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+           </div>
+          <div class="form-group form-floating mt-3">
+            <!-- <i class="fa-solid fa-user-tie"></i> -->
+            {{ form.password2 }}
+            <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
+           </div>
+         
+        
+          <!-- <div class="form-group form-floating">
+            <i class="fa-solid fa-envelope"></i>
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+            {{ form.email }}
+          </div>
+          <div class="form-group form-floating">
+            <i class="fa-solid fa-key"></i>
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+            {{ form.password1 }}
+          </div>
+          <div class="form-group form-floating">
+            <i class="fa-solid fa-key"></i>
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+            {{ form.password2 }}
+          </div> -->
+          <button class="action_button"  type="submit">Create Account</button>
+        </form>
+        
+    </div>
+  </div>
+  {% endblock content %}
+  <script src="/static/forms.js"></script>
+</body>
+</html>
+
+ 

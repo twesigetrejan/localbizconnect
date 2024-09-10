@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="..." crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body> 
+  <div class="login-container "> 
+    <div class="side-content"> 
+      <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="custom-message {{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Welcome Back</h2>
+        <p>LocalBizConnect welcomes you back for yet another adventure</p>
+        <a href="{% url 'register' %}" class="register">Register</a>
+      </div>
+    </div>
+  
+    <div class="login"> 
+        <form method="POST"  >
+          <h3>Sign In</h3>
+          {% csrf_token %}  
+          <div class="form-group form-floating">
+            <!-- <i class="fa-solid fa-user-tie"></i> -->
+            {{ form.as_p }}
+            <!-- <label for="{{ form.username.id_for_label }}" class="form-label">Username</label> -->
+           </div>
+           
+          
+          <button class="action_button"  type="submit">Log In</button>
+        </form>
+        
+    </div>
+  </div> 
+  <script src="/static/forms.js"></script>
+</body>
+</html>
+
+ 
+
+ 

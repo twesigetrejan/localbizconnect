@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-image: url(/static/images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+nav{
+    background-color: #FFAA19;
+    overflow: hidden;
+    font-size: 17px;
+}
+
+.nav-brand{
+    float: left;
+    color: #073B4C;
+}
+.navbar li{
+    list-style: none;
+}
+.navbar a{
+    color: #fff;
+    float: right;
+    text-decoration: none;
+    padding:  24px 16px;
+    display: inline;
+}
+.navbar a.active{
+    background-color: #073B4C;
+}
+.navbar a:hover{
+    background-color: #073B4C;
+    cursor: pointer;
+    color: #AED9E0;
+}

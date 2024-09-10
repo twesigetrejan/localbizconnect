@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ item.title }} Details</title>
+</head>
+<body>
+    {% block content %}
+    {% if item_details %}
+      <h1>{{item_details.title }} details</h1>
+      <img src ="{{ item_details.item.picture.url }}" alt ="{{item_details.item.title}}">
+      <p>Key features:{{ item_details.key_features }}</p>
+    {% else %}
+      <p> No details found</p>
+    {% endif %}
+    {% endblock content %}
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE>
+<html>
+    <title>Service Bookings</title>
+<head>Complete booking{{ service.service_name }}
+</head>
+<body>
+{% block content %}
+<h1>Book Service </h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Book Now</button>
+</form>
+{% endblock content %}
+</body>
+</html>

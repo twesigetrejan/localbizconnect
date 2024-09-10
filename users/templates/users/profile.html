@@ -1,0 +1,63 @@
+ {% extends 'base.html' %}
+
+{% block content%}
+
+<section>
+  <div class="container profile">
+    <div class="row">
+      <div class="col-12 col-md-6 p-3">
+        <div class="rounded text-center container p-3 shadow bg-white">
+          <div class="user-profile">
+            <img src="{{ request.user.profile.image.url}}" class="rounded-circle" width="150" height="150" alt="" srcset="">
+          </div>
+          <div class="mt-2 mx-5">
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group text-start"> 
+                 {{ u_form }} {{ p_form }}
+              </div>
+              <button class="btn text-white b-primary mt-2" type="submit">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 p-3">
+        <div class="rounded container p-3 shadow bg-white">
+          <h3>User Profile</h3>
+            <div class="row mt-4">
+              <div class="col-4 align-items-center d-flex "><span class="rounded-circle me-2 listing "></span><span>Username</span></div>
+              <div class="col-4"> {{ request.user.username }}</div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-4 align-items-center d-flex "><span class="rounded-circle me-2 listing "></span><span>Email</span></div>
+              <div class="col-4"> {{ request.user.email }}</div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-4 align-items-center d-flex "><span class="rounded-circle me-2 listing "></span><span>Biograpgy</span></div>
+              <div class="col-4"> {{ request.user.profile.bio }}</div>
+            </div>
+        </div>
+        <div class="rounded container p-3 mt-5 shadow bg-white">
+          <h3>Your Business Profile</h3>
+            <div class="row mt-4">
+              <div class="col-4">Username</div> 
+              <div class="col-4"> {{ request.user.username }}</div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-4">Email</div>
+              <div class="col-4"> {{ request.user.email }}</div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-4">Biograpgy</div>
+              <div class="col-4"> {{ request.user.profile.bio }}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock%}
+
+
+ 

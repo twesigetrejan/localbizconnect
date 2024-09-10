@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <h1>Here are your items</h1>
+    {% block content %}
+        {% for item in Item %} 
+            {{ item }} 
+        {% endfor %}
+    {% endblock content %}
+  </body>
+</html>

@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-2 bg-white p-3 rounded mt-3">
+    <h2 class="border-bottom py-2 text-muted">Order Details</h2>
+    <form method="POST">
+        {% csrf_token %} 
+        <h3 class="mt-4"> Payment options </h3>
+        <p>LocalBizConnect offers a wide range of payment options for orders made by our customers. Choose your preferred payment option here  <p>
+            <label>Payment Method</label> </p>
+            {{ form.payment_method }}
+        <h3 class="mt-4">Total payment upon delivery</h3>
+        <p>This is the total amount you will pay upon delivery of your order 
+            Total amount: Shs.{{ total_price }}</p>
+        <h3 class="mt-4">Delivery details</h3>
+        <p>The platfrom will allow you to choose your preferred delivery location and it will be delivered to the door step 
+            Delivery Location:  {{form.location}}</p> 
+        <h3 class="mt-4">Order date </h3>
+        <p>Localbizconnect and its users are in postion to monitor the progress of orders 
+            Order date: {{ form.created_at}}</p>
+        
+        <a href = "{% url 'Item-list' %}" class="btn text-white ms-auto b-primary">
+            Place Order 
+        </a>
+    </form>
+</div>
+{% endblock %}
+
